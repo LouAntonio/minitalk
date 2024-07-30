@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-void  stoc(int bit)
+void  stoc(int bit, siginfo_t *info, void *context)
 {
 	static int i = 0;
 	static int c = 0;
@@ -15,20 +15,22 @@ void  stoc(int bit)
 	if (i == 8)
 	{
 		write(1, &c, 1);
-		if (c == '\0')
+		if (c == '\0'){
 			write(1, "\n", 1);
-
+			kill(info->si_pid, SIGUSR2);
+		}
 		i = 0;
 		c = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
+
 }
 
-int main() {
+int main(void) {
 	struct sigaction c;
 
-	// Configura o manipulador de sinal para SIGUSR1
-	c.sa_handler = stoc;
-	c.sa_flags = 0;
+	c.sa_sigaction = stoc;
+	c.sa_flags = SA_SIGINFO;
 	sigemptyset(&c.sa_mask);
 	sigaction(SIGUSR1, &c, NULL);
 	sigaction(SIGUSR2, &c, NULL);
