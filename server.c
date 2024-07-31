@@ -30,7 +30,6 @@ void	stoc(int bit, siginfo_t *info, void *context)
 		if (c == '\0')
 		{
 			write(1, "\n", 1);
-			kill(info->si_pid, SIGUSR2);
 		}
 		i = 0;
 		c = 0;

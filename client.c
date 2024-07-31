@@ -17,10 +17,22 @@
 
 static int	g_state = 0;
 
-void	bonus(int bit)
+int	ft_atoi(char *str)
 {
-	bit = 0;
-	write(1, "OK\n", 3);
+	int	result;
+	int	signal;
+
+	result = 0;
+	signal = 1;
+	while (*str == ' ' || *str == '\t')
+		str++;
+	if (*str == '-')
+		signal = -1;
+	if (*str == '-' || *str == '\t')
+		str++;
+	while (*str >= '0' && *str <= '9')
+		result = result * 10 + (*str++ - '0');
+	return (result * signal);
 }
 
 void	keep_working(int bit)
@@ -50,9 +62,9 @@ int	main(int ac, char **av)
 {
 	int	i;
 
+	i = 0;
 	signal(SIGUSR1, &keep_working);
-	signal(SIGUSR2, &bonus);
 	while (av[1][i])
-		send_signal(atoi(av[2]), av[1][i++]);
+		send_signal(ft_atoi(av[2]), av[1][i++]);
 	send_signal(atoi(av[2]), '\0');
 }
