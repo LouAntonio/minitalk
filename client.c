@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
 
@@ -63,8 +61,12 @@ int	main(int ac, char **av)
 	int	i;
 
 	i = 0;
-	signal(SIGUSR1, &keep_working);
-	while (av[1][i])
-		send_signal(ft_atoi(av[2]), av[1][i++]);
-	send_signal(atoi(av[2]), '\0');
+	if (ac == 2)
+	{
+		signal(SIGUSR1, &keep_working);
+		while (av[2][i])
+			send_signal(ft_atoi(av[1]), av[2][i++]);
+		send_signal(ft_atoi(av[1]), '\0');
+	} else
+		write(1, "Get sure you run the program whith the server PID and the message", 100);
 }
