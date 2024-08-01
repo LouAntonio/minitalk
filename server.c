@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 void	stoc(int bit, siginfo_t *info, void *context)
 {
@@ -44,7 +41,7 @@ int	main(void)
 	sigemptyset(&c.sa_mask);
 	sigaction(SIGUSR1, &c, NULL);
 	sigaction(SIGUSR2, &c, NULL);
-	printf("Server PID = %d\n", getpid());
+	ft_printf("Server PID = %d\n", getpid());
 	while (1)
 		pause();
 	return (0);

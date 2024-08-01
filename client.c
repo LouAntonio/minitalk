@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 static int	g_state = 0;
 
@@ -61,12 +60,18 @@ int	main(int ac, char **av)
 	int	i;
 
 	i = 0;
-	if (ac == 2)
+	if (ac == 3)
 	{
-		signal(SIGUSR1, &keep_working);
-		while (av[2][i])
-			send_signal(ft_atoi(av[1]), av[2][i++]);
-		send_signal(ft_atoi(av[1]), '\0');
-	} else
-		write(1, "Get sure you run the program whith the server PID and the message", 100);
+		if (ft_atoi(av[1]))
+		{
+			signal(SIGUSR1, &keep_working);
+			while (av[2][i])
+				send_signal(ft_atoi(av[1]), av[2][i++]);
+			send_signal(ft_atoi(av[1]), '\0');
+		}
+		else
+			ft_printf("Check the PID you inserted\n");
+	}
+	else
+		ft_printf("[./client][PID][message]\n");
 }
