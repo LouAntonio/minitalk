@@ -10,12 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 static int	g_state = 0;
+
+int	ft_atoi(char *str)
+{
+	int	result;
+	int	signal;
+
+	result = 0;
+	signal = 1;
+	while (*str == ' ' || *str == '\t')
+		str++;
+	if (*str == '-')
+		signal = -1;
+	if (*str == '-' || *str == '\t')
+		str++;
+	while (*str >= '0' && *str <= '9')
+		result = result * 10 + (*str++ - '0');
+	return (result * signal);
+}
 
 void	bonus(int bit)
 {
@@ -50,9 +65,20 @@ int	main(int ac, char **av)
 {
 	int	i;
 
-	signal(SIGUSR1, &keep_working);
-	signal(SIGUSR2, &bonus);
-	while (av[1][i])
-		send_signal(atoi(av[2]), av[1][i++]);
-	send_signal(atoi(av[2]), '\0');
+	i = 0;
+	if (ac == 3)
+	{
+		if (ft_atoi(av[1]))
+		{
+			signal(SIGUSR2, &bonus);
+			signal(SIGUSR1, &keep_working);
+			while (av[2][i])
+				send_signal(ft_atoi(av[1]), av[2][i++]);
+			send_signal(ft_atoi(av[1]), '\0');
+		}
+		else
+			ft_printf("Check the PID you inserted\n");
+	}
+	else
+		ft_printf("[./client][PID][message]\n");
 }
