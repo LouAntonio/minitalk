@@ -49,9 +49,15 @@ void	send_signal(int pid, unsigned char c)
 	while (i--)
 	{
 		if (((c >> i) & 1))
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				exit(1);
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				exit(1);
+		}
 		while (g_state == 0)
 			;
 		g_state = 0;
@@ -73,7 +79,7 @@ int	main(int ac, char **av)
 			send_signal(ft_atoi(av[1]), '\0');
 		}
 		else
-			ft_printf("Check the PID you inserted\n");
+			ft_printf("Check the PID\n");
 	}
 	else
 		ft_printf("[./client][PID][message]\n");

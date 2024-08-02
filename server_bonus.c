@@ -38,13 +38,13 @@ void	stoc(int bit, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	struct sigaction	c;
+	struct sigaction	s_c;
 
-	c.sa_sigaction = stoc;
-	c.sa_flags = SA_SIGINFO;
-	sigemptyset(&c.sa_mask);
-	sigaction(SIGUSR1, &c, NULL);
-	sigaction(SIGUSR2, &c, NULL);
+	s_c.sa_sigaction = stoc;
+	s_c.sa_flags = SA_SIGINFO;
+	sigemptyset(&s_c.sa_mask);
+	sigaction(SIGUSR1, &s_c, NULL);
+	sigaction(SIGUSR2, &s_c, NULL);
 	ft_printf("Server PID = %d\n", getpid());
 	while (1)
 		pause();
