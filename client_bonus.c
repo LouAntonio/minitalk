@@ -37,7 +37,7 @@ int	ft_atoi(char *str)
 
 void	bonus(int bit)
 {
-	bit = 0;
+	(void)bit;
 	write(1, "OK\n", 3);
 }
 

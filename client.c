@@ -37,7 +37,7 @@ int	ft_atoi(char *str)
 
 void	keep_working(int bit)
 {
-	bit = 0;
+	(void)bit;
 	g_state = 1;
 }
 

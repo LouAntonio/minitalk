@@ -18,6 +18,7 @@ void	stoc(int bit, siginfo_t *info, void *context)
 	static int	c = 0;
 
 	c = c * 2;
+	(void)context;
 	if (bit == SIGUSR1)
 		c = c + 1;
 	i++;
