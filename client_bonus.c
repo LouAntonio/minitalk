@@ -24,10 +24,7 @@ int	ft_atoi(char *str)
 	while (*str == ' ' || *str == '\t')
 		str++;
 	if (*str == '-')
-	{
-		ft_printf("You cant pass a negative PID\n");
 		exit(1);
-	}
 	if (*str == '-' || *str == '\t')
 		str++;
 	while (*str >= '0' && *str <= '9')

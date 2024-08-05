@@ -25,7 +25,7 @@ int	ft_atoi(char *str)
 		str++;
 	if (*str == '-')
 	{
-		ft_printf("You cant pass a negative PID\n");
+		ft_printf("You cant insert a negative PID\n");
 		exit(1);
 	}
 	if (*str == '-' || *str == '\t')
@@ -51,12 +51,18 @@ void	send_signal(int pid, unsigned char c)
 		if (((c >> i) & 1))
 		{
 			if (kill(pid, SIGUSR1) == -1)
+			{
+				ft_printf("504 Gateway Timeout\n");
 				exit(1);
+			}
 		}
 		else
 		{
 			if (kill(pid, SIGUSR2) == -1)
+			{
+				ft_printf("504 Gateway Timeout\n");
 				exit(1);
+			}
 		}
 		while (g_state == 0)
 			;
