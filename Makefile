@@ -12,7 +12,7 @@ OBJS_NAME2			= $(NAME2_SRC:.c=.o)
 
 FTPRINTF	= ft_printf/libftprintf.a
 
-all: $(NAME1) $(NAME2)
+all: $(NAME)
 
 $(NAME): $(NAME1) $(NAME2)
 
